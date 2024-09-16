@@ -15,17 +15,17 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && apt-get clean
 
 # Install PHP extensions.
-RUN docker-php-ext-install gd
-RUN docker-php-ext-install pdo pdo_mysql
-RUN docker-php-ext-install curl 
-RUN docker-php-ext-install exif
-RUN docker-php-ext-install pcntl
-RUN docker-php-ext-install opcache
-RUN docker-php-ext-install xsl
-RUN docker-php-ext-install bcmath
-RUN docker-php-ext-install tokenizer
-RUN docker-php-ext-install calendar
-RUN docker-php-ext-install sockets
+RUN docker-php-ext-install -j$(nproc) gd
+RUN docker-php-ext-install -j$(nproc) pdo pdo_mysql
+RUN docker-php-ext-install -j$(nproc) curl 
+RUN docker-php-ext-install -j$(nproc) exif
+RUN docker-php-ext-install -j$(nproc) pcntl
+RUN docker-php-ext-install -j$(nproc) opcache
+RUN docker-php-ext-install -j$(nproc) xsl
+RUN docker-php-ext-install -j$(nproc) bcmath
+RUN docker-php-ext-install -j$(nproc) tokenizer
+RUN docker-php-ext-install -j$(nproc) calendar
+RUN docker-php-ext-install -j$(nproc) sockets
 
 # RUN apt-get install -y \
 #         libonig-dev \
@@ -33,25 +33,27 @@ RUN docker-php-ext-install sockets
 
 RUN apt-get install -y \
         libssl-dev \
-    && docker-php-ext-install ftp phar
+    && docker-php-ext-install -j$(nproc) ftp phar
 
 RUN apt-get install -y \
         libicu-dev \
-    && docker-php-ext-install intl
+    && docker-php-ext-install -j$(nproc) intl
 
 RUN apt-get install -y \
         libmcrypt-dev \
-    && docker-php-ext-install session
+    && docker-php-ext-install -j$(nproc) session
 
 RUN apt-get install -y \
         libxml2-dev \
-    && docker-php-ext-install simplexml xml xmlrpc
+    && docker-php-ext-install -j$(nproc) simplexml xml xmlrpc
 
 RUN apt-get install -y \
         libzip-dev \
         zlib1g-dev \
-    && docker-php-ext-install zip
+    && docker-php-ext-install -j$(nproc) zip
 
 RUN apt-get install -y \
         libgmp-dev \
-    && docker-php-ext-install gmp
+    && docker-php-ext-install -j$(nproc) gmp
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
