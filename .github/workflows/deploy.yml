@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - production
+      - php5-apache
 
 jobs:
   deploy:
@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        ref: production
+        ref: php5-apache
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
@@ -35,5 +35,5 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64/v8
-        tags: leduong/php:7.4-fpm
+        platforms: linux/amd64
+        tags: leduong/php:5-apache

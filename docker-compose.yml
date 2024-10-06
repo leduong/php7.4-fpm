@@ -8,7 +8,15 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     links:
       - php-fpm
+
   php-fpm:
     image: leduong/php:7.4-fpm
+    volumes:
+      - ./src:/var/www/html
+
+  php5-apache:
+    image: leduong/php:5-apache
+    ports:
+      - '8081:80'
     volumes:
       - ./src:/var/www/html
