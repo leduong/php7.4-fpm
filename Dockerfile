@@ -1,5 +1,5 @@
-FROM php:5.5-apache
 # LABEL Le Duong <leduong@me.com>
+FROM php:5.5-apache
 ENV DEBIAN_FRONTEND=noninteractive
 
 
